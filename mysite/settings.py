@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'Missing' * 10)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.getenv('DEBUG') else False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', 'localhost']
 
 # Application definition
 
@@ -122,9 +122,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Security Related
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_SSL_REDIRECT = True
-X_FRAME_OPTIONS='DENY'
-SECURE_CONTENT_TYPE_NOSNIFF=True
+if not DEBUG:
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
+    SECURE_BROWSER_XSS_FILTER = False
+    SECURE_SSL_REDIRECT = False
+    X_FRAME_OPTIONS='DENY'
+    SECURE_CONTENT_TYPE_NOSNIFF=False
